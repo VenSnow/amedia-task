@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->string('user_name');
             $table->string('client_email');
             $table->string('file');
-            $table->enum('status', ['OPEN', 'ANSWERED']);
+            $table->enum('status', ['OPEN', 'ANSWERED'])->default('OPEN');
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')

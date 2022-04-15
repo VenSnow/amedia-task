@@ -48,8 +48,8 @@ class User extends Authenticatable
         return $this->hasMany(Task::class);
     }
 
-    public function getRole()
+    public function isManager()
     {
-        return $this->role;
+        return $this->role == "MANAGER";
     }
 }

@@ -3,19 +3,16 @@
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', [TaskController::class, 'index'])->middleware('auth')->name('index');
-Route::post('/tasks', [TaskController::class, 'store'])->middleware('auth')->name('task.store');
-Route::get('/manager', [TaskController::class, 'manager'])->middleware(['auth', 'isManager'])->name('manager');
+Route::middleware('auth')->group(function () {
+    Route::get('/', [TaskController::class, 'index'])->name('index');
+    Route::name('task.')->group(function () {
+        Route::get('/tasks', [TaskController::class, 'tasks'])->name('index');
+        Route::post('/tasks', [TaskController::class, 'store'])->name('store');
+    });
+    Route::middleware('isManager')->group(function () {
+        Route::get('/manager', [TaskController::class, 'manager'])->name('manager');
+        Route::patch('/tasks/{task}', [TaskController::class, 'taskChange'])->name('manager.task.change');
+    });
+});
 
 require __DIR__.'/auth.php';
