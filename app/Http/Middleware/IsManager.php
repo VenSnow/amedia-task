@@ -13,6 +13,8 @@ class IsManager
      * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return Closure
+     *
+     * Пропустить если пользователь менеджер
      */
     public function handle(Request $request, Closure $next)
     {
