@@ -44,12 +44,15 @@ class TaskController extends Controller
 
     public function manager()
     {
-        return view('manager');
+        $tasks = Task::latest()->paginate(10);
+        return view('manager', compact('tasks'));
     }
 
     public function taskChange(Task $task)
     {
-
+        $task->status = "ANSWERED";
+        $task->save();
+        return redirect()->route('manager')->with('status', 'Вы ответили на заявку');
     }
 
     public function store(StoreTaskRequest $request)

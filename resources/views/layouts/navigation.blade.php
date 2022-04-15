@@ -12,12 +12,18 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        Главная
-                    </x-nav-link>
-                    <x-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
-                        Заявки
-                    </x-nav-link>
+                    @if(auth()->user()->isManager())
+                        <x-nav-link :href="route('manager')" :active="request()->routeIs('manager')">
+                            Главная
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                            Главная
+                        </x-nav-link>
+                        <x-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
+                            Заявки
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -66,12 +72,18 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                Главная
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
-                Заявки
-            </x-responsive-nav-link>
+            @if(auth()->user()->isManager())
+                <x-responsive-nav-link :href="route('manager')" :active="request()->routeIs('manager')">
+                    Главная
+                </x-responsive-nav-link>
+            @else
+                <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                    Главная
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('task.index')" :active="request()->routeIs('task.index')">
+                    Заявки
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

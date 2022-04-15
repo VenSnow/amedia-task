@@ -30,4 +30,9 @@ class Task extends Model
         }
         return 'Отвечено';
     }
+
+    public function isDone()
+    {
+        return $this->status == 'ANSWERED';
+    }
 }
